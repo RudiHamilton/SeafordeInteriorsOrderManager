@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+    font-family:"Helvetica";
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: darkolivegreen;
+  }
+
+  h1{
+    display: block;
+    padding: 14px 16px;
+  }
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: #38471f;
+  }
+  
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding-left: 20px;
+  }
+  tr:hover {background-color: darkolivegreen; color:white;}
