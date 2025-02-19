@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'customer_id'=>Customer::inRandomOrder()->first()->customer_id,
+            'order_payment_type'=>$this->faker->randomElement(['cash', 'card']),
+            'order_complete'=>$this->faker->boolean(0.5)
         ];
     }
 }

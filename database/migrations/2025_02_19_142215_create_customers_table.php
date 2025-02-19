@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('customer_first_name');
             $table->string('customer_second_name');
             $table->string('customer_email')->unique();
-            $table->string('customer_phone')->unique();
+            $table->string('customer_phone');
             $table->string('customer_firstline_address');
             $table->string('customer_secondline_address');
             $table->string('customer_postcode');
