@@ -30,7 +30,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Log::info('Product Store function reached');
+        $data = new Product();
+        $data->product_name = $request->product_name;
+        $data->product_price = $request->product_price;
+        $data->product_cost_to_make = $request->product_cost_to_make;
+        $data->product_current_stock = $request->product_current_stock;
+        $data->save();
+        Log::info('Product data has been stored in databse');
+        return view('/usedpages/addproduct');
     }
 
     /**

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use Database\Factories\ProductFactory;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,4 +29,10 @@ Route::prefix('/usedpages')->group(function(){
     Route::delete('viewcustomers/{customer_id}',[CustomerController::class,'destroy'])->name('deletecustomer');
     Route::delete('viewproducts/{product_id}',[ProductController::class,'destroy'])->name('deleteproduct');
     Route::delete('vieworder/{order_id}',[OrderController::class,'destroy'])->name('deleteorder');
+});
+
+Route::prefix('/usedpages')->group(function(){
+    Route::post('addcustomer',[CustomerController::class,'store'])->name('addcustomer');
+    Route::post('addproduct',[ProductController::class,'store'])->name('addproduct');
+    Route::post('createorder',[OrderController::class,'store'])->name('createorder');   
 });

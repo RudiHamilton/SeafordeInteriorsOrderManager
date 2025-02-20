@@ -30,7 +30,18 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Log::info('Customer Store function reached');
+        $data = new Customer();
+        $data->customer_first_name = $request->customer_first_name;
+        $data->customer_second_name = $request->customer_second_name;
+        $data->customer_email = $request->customer_email;
+        $data->customer_phone = $request->customer_phone;
+        $data->customer_firstline_address = $request->customer_firstline_address;
+        $data->customer_secondline_address = $request->customer_secondline_address;
+        $data->customer_postcode = $request->customer_postcode;
+        $data->save();
+        Log::info('Customer data has been stored in databse');
+        return view('/usedpages/addcustomer');
     }
 
     /**
