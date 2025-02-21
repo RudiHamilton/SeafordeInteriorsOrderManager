@@ -9,8 +9,10 @@ class Customer extends Model
 {
     /** @use HasFactory<\Database\Factories\CustomerFactory> */
     use HasFactory;
+    protected $primaryKey = 'customer_id';
 
     protected $fillable = [
+        'customer_id',
         'customer_first_name',
         'customer_second_name',
         'customer_email',

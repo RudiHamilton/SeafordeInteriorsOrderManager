@@ -36,3 +36,8 @@ Route::prefix('/usedpages')->group(function(){
     Route::post('addproduct',[ProductController::class,'store'])->name('addproduct');
     Route::post('createorder',[OrderController::class,'store'])->name('createorder');   
 });
+
+Route::prefix('/usedpages')->group(function(){
+    Route::put('/viewcustomers/{customer_id}',[CustomerController::class,'update'])->name('updatecustomer');
+    Route::put('/viewproducts/{product_id}',[ProductController::class,'update'])->name('updateproduct');
+});

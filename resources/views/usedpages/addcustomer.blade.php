@@ -1,5 +1,6 @@
 <x-layout>
     <h1>Add Customer</h1>
+    <div class="inputform">
     <form method="POST" action="{{ route('addcustomer') }}">
         @csrf
         <label class="form-label" for="customer_first_name">Customer First name:</label><br>
@@ -25,4 +26,5 @@
         <br>
         <button class="btn-submit" type="submit">Submit</button>
     </form>
+    </div>
 </x-layout>

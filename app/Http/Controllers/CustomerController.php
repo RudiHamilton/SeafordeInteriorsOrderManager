@@ -55,17 +55,24 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
-        //
+        Log::info('Edit Method reached');
+        $customer = Customer::find($id);
+        return view('/usedpages/editcustomer',['customer'=>$customer]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, $id)
     {
-        //
+        Log::info('Reached the update method');
+        $customer = Customer::find ($id);
+        Log::info('customer_id found');
+        $customer->update($request->all());
+        Log::info('Records updated');
+        return redirect('/usedpages/viewcustomers');
     }
 
     /**

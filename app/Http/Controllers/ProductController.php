@@ -52,17 +52,24 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        Log::info('Edit Method reached');
+        $product = Product::find($id);
+        return view('/usedpages/editproduct',['product'=>$product]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        Log::info('Reached the update method');
+        $product = Product::find ($id);
+        Log::info('product_id found');
+        $product->update($request->all());
+        Log::info('Records updated');
+        return redirect('/usedpages/viewproducts');
     }
 
     /**
