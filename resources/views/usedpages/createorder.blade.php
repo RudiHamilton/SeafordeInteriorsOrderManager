@@ -1,43 +1,72 @@
 <x-layout>
     <h1>Create Order</h1>
 
-    <form method="POST" action="">
+    <form method="POST" action="{{ route('orderstore') }}">
         @csrf
-        <label class="form-label" for="customer_first_name">Customer First name:</label><br>
-        <input class="form-input" type="text" id="customer_first_name" name="customer_first_name" placeholder="Enter Customer First Name" required /><br>
+        <label class="form-label" for="product_id">Customer Name:</label>
         <br>
-        <label class="form-label" for="customer_second_name">Customer Second name:</label><br>
-        <input class="form-input" type="text" id="customer_second_name" name="customer_second_name" placeholder="Enter Customer Second Name" required /><br>
+        <select name="customer_id" id="customer">
+            @foreach ($customers as $customer)
+                <option value="{{ $customer->customer_id }}">
+                    {{ $customer->customer_first_name ." ". $customer->customer_second_name }}</option>
+            @endforeach
+        </select>
         <br>
-        <label class="form-label" for="customer_email">Customer Email:</label><br>
-        <input class="form-input" type="email" id="customer_email" name="customer_email" placeholder="Enter Customer Email" required /><br>
         <br>
-        <label class="form-label" for="customer_phone">Customer Phone Number:</label><br>
-        <input class="form-input" type="string" id="customer_phone" name="customer_phone" placeholder="Enter Phone No." required /><br>
+        <label class="form-label" for="product_id">Product:</label>
         <br>
-        <label class="form-label" for="customer_firstline_address">Customer First Line Address:</label><br>
-        <input class="form-input" type="text" id="customer_firstline_address" name="customer_firstline_address" placeholder="Enter First Line Address" required /><br>
-        <br>
-        <label class="form-label" for="customer_secondline_address">Customer Second Line Address:</label><br>
-        <input class="form-input" type="text" id="customer_secondline_address" name="customer_secondline_address" placeholder="Enter Second Line Address"/><br>
-        <br>
-        <label class="form-label" for="customer_postcode">Customer Postcode:</label><br>
-        <input class="form-input" type="text" id="customer_postcode" name="customer_postcode" placeholder="Enter Postcode"/><br>
-        <label class="form-label" for="product_id">Product:</label><br>
         <select name="product_id" id="product_id">
             @foreach ($products as $product)
-                <option value="{{$product->product_id}}">{{$product->product_name}}</option>
+                <option value="{{ $product->product_id }}">{{ $product->product_name }}</option>
             @endforeach
-          </select>
-        <br>
-        <br>
-        <label class="form-label" for="user_first_name">Customer Name:</label><br>
-        <select name="product_quantity" id="product_quanity">
-
-           
         </select>
+        <br>
+        <br>
+        <label class="form-label" for="product_id">Quantity:</label>
+        <br>
+        <br>
+        <div class="quantity-counter">
+            <button id="counter-decrement" class="decrement" type="button">-</button>
+            <input id="order_quantity" name="order_quantity"class="value" type="number" value="1">
+            <button id="counter-increment" class="increment"type="button">+</button>
+        </div>
+        <br>
+        <br>
+        <label for="buttons">Payment Choice:</label>
+        <br>
+        <br>
+        <input type="radio" id="order_payment_type" name="order_payment_type" value="Cash">
+        <label for="cash">Cash</label>
+        <input type="radio" id="order_payment_type" name="order_payment_type" value="Card">
+        <label for="card">Card</label>
+        <br>
+        <br>
+        <label for="order_complete">Is this an already completed order?</label>
+        <br>
+        <br>
+        <input type="radio" id="order_complete" name="order_complete" value="1">
+        <label for="cash">Yes</label>
+        <input type="radio" id="order_complete" name="order_complete" value="0">
+        <label for="card">No</label>
         <br>
         <br>
         <button class="btn-submit" type="submit">Submit</button>
     </form>
+    <script>
+        var counterValue = document.querySelector("#order_quantity");
+        var counterIncrement = document.querySelector("#counter-increment");
+        var counterDecrement = document.querySelector("#counter-decrement");
+        var count = 1;
+        counterIncrement.addEventListener('click', () => {
+            count++; // Increment count
+            counterValue.setAttribute("value", count); // Update the input value
+        });
+
+        counterDecrement.addEventListener('click', () => {
+            if (count > 1) { // Ensure count does not go below 1
+                count--; // Decrement count
+                counterValue.setAttribute("value", count);
+            }
+        });
+    </script>
 </x-layout>

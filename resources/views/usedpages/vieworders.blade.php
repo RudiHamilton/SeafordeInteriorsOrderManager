@@ -4,17 +4,27 @@
         <thead>
             {{-- This will be swapped out for cards in the future just testing currently --}}
             <th>Order ID</th>
-            <th>Customer Name</th>
-            <th>Order Payment order_payment_type</th>
+            <th>Customer ID</th>
+            <th>Product ID</th>
+            <th>Order Payment Type</th>
+            <th>Order Quantity</th>
+            <th>Order Gross Profit</th>
+            <th>Order Net Profit</th>
+            <th>Order Cost To Make</th>
             <th>Order Complete?</th>
-            <th>Order Placed</th>
+            <th>Order Placed Date</th>
         </thead>
         <tbody>
             @foreach ($orders as $order)
             <tr>
                 <td>{{$order->order_id}}</td>
                 <td>{{$order->customer_id}}</td>
+                <td>{{$order->product_id}}</td>
                 <td>{{$order->order_payment_type}}</td>
+                <td>{{$order->order_quantity}}</td>
+                <td>{{$order->order_profit}}</td>
+                <td>{{$order->order_net_profit}}</td>
+                <td>{{$order->order_cost_to_make}}</td>
                 <td>{{$order->order_complete}}</td>
                 <td>{{$order->created_at}}</td>
                 <td>

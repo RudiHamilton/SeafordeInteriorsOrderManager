@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Order;
-use App\Models\OrderProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,17 +22,38 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $orders = Order::all();
+        $products = Product::all();
+        $customers = Customer::all();
+        Log::info('Order Store function reached');
+        return view('/usedpages/createorder',compact('orders','products','customers'));
+      
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request,)
+    {   
+        $product = Product::find($request->product_id);
+        $calculatedValues = $this->productCostCalc($request->order_quantity, $product);
+        $data = new Order();
+        $data->product_id = $request->product_id;
+        $data->customer_id = $request->customer_id;
+        $data->order_quantity = $request->order_quantity;
+        $data->order_payment_type = $request->order_payment_type;
+        $data->order_complete = $request->order_complete;
+        $data->order_profit = $calculatedValues['total_price'];
+        $data->order_net_profit = $calculatedValues['net_profit'];
+        $data->order_cost_to_make = $calculatedValues['total_cost'];
+        $data->save();
+        $orders = Order::all();
+        $products = Product::all();
+        $customers = Customer::all();
+        Log::info('Order data has been stored in databse');
+        return view('/usedpages/createorder',compact('orders','products','customers'));
     }
 
     /**
@@ -46,9 +67,11 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
-        //
+        Log::info('Edit Method reached');
+        $order = Order::find($id);
+        return view('/usedpages/editorder',['order'=>$order]);
     }
 
     /**
@@ -56,7 +79,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        
     }
 
     /**
@@ -71,26 +94,23 @@ class OrderController extends Controller
         Log::info('order records loaded again');
         return view('/usedpages/vieworders',compact('orders'));
     }
-    
-    public function productCostCalc($order_id,$product_id,$order_product_id){
-        //searches search for ids
-        $orderProduct= OrderProduct::find($order_product_id);
-        $order = Order::find($order_id);
-        $product = Product::find($product_id);
 
+    public function productCostCalc($quantity,Product $product){
+        
         //gets the parameters needed for calculations
-        $costToMake = $product->cost_to_make;
+        $costToMake = $product->product_cost_to_make;
         $price = $product->product_price;
-        $quantity = $orderProduct->order_product_quantity;
         
         //calculations
         $netprofit = $quantity * $price;
         $totalCost = $costToMake * $quantity;
-        $totalPrice = $price * $quantity;
+        $totalPrice = $netprofit - $totalCost;
 
         //storing data 
-        $order->order_net_proft = $netprofit;
-        $order->order_profit = $totalPrice;
-        $order->order_cost_to_make = $totalCost;
+        return[
+            'net_profit'=>$netprofit,
+            'total_cost'=>$totalCost,
+            'total_price'=>$totalPrice,
+        ];
     }
 }

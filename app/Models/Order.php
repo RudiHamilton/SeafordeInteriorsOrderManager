@@ -15,6 +15,10 @@ class Order extends Model
         'order_id',
         'customer_id',
         'order_payment_type',
+        'order_profit',
+        'order_quantity',
+        'order_net_profit',
+        'order_cost_to_make',
         'order_complete'
     ];
 }

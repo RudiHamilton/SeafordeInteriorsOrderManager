@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id('order_id');
             $table->foreignId('customer_id');
+            $table->foreignId('product_id');
             $table->string('order_payment_type');
+            $table->integer('order_quantity');
             $table->integer('order_profit');
-            $table->integer('order_net_proft');
-            $table->interger('order_cost_to_make');
+            $table->integer('order_net_profit');
+            $table->integer('order_cost_to_make');
             $table->boolean('order_complete');
             $table->timestamps();
         });

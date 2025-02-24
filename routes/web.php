@@ -31,10 +31,12 @@ Route::prefix('/usedpages')->group(function(){
     Route::delete('vieworder/{order_id}',[OrderController::class,'destroy'])->name('deleteorder');
 });
 
+Route::get('/usedpages/createorder',[OrderController::class,'create'])->name('createorder');   
+
 Route::prefix('/usedpages')->group(function(){
     Route::post('addcustomer',[CustomerController::class,'store'])->name('addcustomer');
     Route::post('addproduct',[ProductController::class,'store'])->name('addproduct');
-    Route::post('createorder',[OrderController::class,'store'])->name('createorder');   
+    Route::post('createorder',[OrderController::class,'store'])->name('orderstore');   
 });
 
 Route::prefix('/usedpages')->group(function(){

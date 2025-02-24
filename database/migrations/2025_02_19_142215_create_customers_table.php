@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('customer_email')->unique();
             $table->string('customer_phone');
             $table->string('customer_firstline_address');
-            $table->string('customer_secondline_address');
+            $table->string('customer_secondline_address')->nullable();
             $table->string('customer_postcode');
             $table->timestamps();
         });

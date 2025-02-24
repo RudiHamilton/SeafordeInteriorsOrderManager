@@ -15,13 +15,13 @@
         <label class="form-label" for="customer_phone">Customer Phone Number:</label><br>
         <input class="form-input" type="string" id="customer_phone" name="customer_phone" placeholder="Enter Phone No." required /><br>
         <br>
-        <label class="form-label" for="customer_firstline_address">First Line Address:</label><br>
+        <label class="form-label" for="customer_firstline_address">Customer First Line Address:</label><br>
         <input class="form-input" type="text" id="customer_firstline_address" name="customer_firstline_address" placeholder="Enter First Line Address" required /><br>
         <br>
-        <label class="form-label" for="customer_secondline_address">Second Line Address:</label><br>
+        <label class="form-label" for="customer_secondline_address">Customer Second Line Address (optional):</label><br>
         <input class="form-input" type="text" id="customer_secondline_address" name="customer_secondline_address" placeholder="Enter Second Line Address"/><br>
         <br>
-        <label class="form-label" for="customer_postcode">Second Line Address:</label><br>
+        <label class="form-label" for="customer_postcode">Customer Postcode:</label><br>
         <input class="form-input" type="text" id="customer_postcode" name="customer_postcode" placeholder="Enter Postcode"/><br>
         <br>
         <button class="btn-submit" type="submit">Submit</button>
