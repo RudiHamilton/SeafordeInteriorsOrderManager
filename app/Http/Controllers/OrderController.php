@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -68,5 +70,27 @@ class OrderController extends Controller
         $orders = Order::all();
         Log::info('order records loaded again');
         return view('/usedpages/vieworders',compact('orders'));
+    }
+    
+    public function productCostCalc($order_id,$product_id,$order_product_id){
+        //searches search for ids
+        $orderProduct= OrderProduct::find($order_product_id);
+        $order = Order::find($order_id);
+        $product = Product::find($product_id);
+
+        //gets the parameters needed for calculations
+        $costToMake = $product->cost_to_make;
+        $price = $product->product_price;
+        $quantity = $orderProduct->order_product_quantity;
+        
+        //calculations
+        $netprofit = $quantity * $price;
+        $totalCost = $costToMake * $quantity;
+        $totalPrice = $price * $quantity;
+
+        //storing data 
+        $order->order_net_proft = $netprofit;
+        $order->order_profit = $totalPrice;
+        $order->order_cost_to_make = $totalCost;
     }
 }

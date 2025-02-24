@@ -18,4 +18,11 @@ class Product extends Model
         'product_cost_to_make',
         'product_current_stock',
     ];
+    public function reduceStock($quantity)
+    {
+        if ($this->stock_quantity < $quantity) {
+            throw new \Exception("Not enough stock available.");
+        }
+        $this->decrement('stock_quantity', $quantity);
+    }
 }

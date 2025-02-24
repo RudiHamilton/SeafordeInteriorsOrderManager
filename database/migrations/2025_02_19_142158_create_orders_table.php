@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id('order_id');
             $table->foreignId('customer_id');
             $table->string('order_payment_type');
+            $table->integer('order_profit');
+            $table->integer('order_net_proft');
+            $table->interger('order_cost_to_make');
             $table->boolean('order_complete');
             $table->timestamps();
         });
