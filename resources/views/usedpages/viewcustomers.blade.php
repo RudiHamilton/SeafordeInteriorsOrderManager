@@ -27,7 +27,7 @@
                     <form method="POST" action="{{route('editcustomer',$customer->customer_id)}}">
                         @csrf
                         @method('GET')
-                        <button type="submit">Edit</button>
+                        <button type="submit">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>
                     </form>
                     <form method="POST" action="{{ route('deletecustomer',$customer->customer_id) }}" onsubmit="return confirm('Are you sure you want to delete this product?')">
                         @csrf
