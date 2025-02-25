@@ -4,6 +4,9 @@
 *{
     font-family:"Helvetica";
 }
+main{
+  padding:50px;
+}
 ul {
     list-style-type: none;
     margin: 0;
@@ -43,7 +46,6 @@ ul {
   
   h1, h3, h5{
     display: block;
-    padding: 14px 16px;
   }
   li {
     float: left;

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Database\Factories\ProductFactory;
@@ -43,3 +44,5 @@ Route::prefix('/usedpages')->group(function(){
     Route::put('/viewcustomers/{customer_id}',[CustomerController::class,'update'])->name('updatecustomer');
     Route::put('/viewproducts/{product_id}',[ProductController::class,'update'])->name('updateproduct');
 });
+
+Route::get('/usedpages/dashboard', [DashboardController::class, 'viewAllStats']);
