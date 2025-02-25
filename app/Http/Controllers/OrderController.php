@@ -67,19 +67,33 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($order_id)
     {
+
         Log::info('Edit Method reached');
-        $order = Order::find($id);
-        return view('/usedpages/editorder',['order'=>$order]);
+        $orders = Order::find($order_id);
+        $products = Product::all();
+        $customers = Customer::all();
+        return view('/usedpages/editorder',compact('orders','products','customers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request,$id)
     {
-        
+        $order =Order::find($id);
+        $product = Product::find($request->product_id);
+        $calculatedValues = $this->productCostCalc($request->order_quantity, $product);
+        $order->update($request->all());
+        $order->order_profit = $calculatedValues['total_price'];
+        $order->order_net_profit = $calculatedValues['net_profit'];
+        $order->order_cost_to_make = $calculatedValues['total_cost'];
+        $order->save();
+        $orders = Order::all();
+        Log::info('Order data has been stored in databse');
+        return view('/usedpages/vieworders',compact('orders'));
+
     }
 
     /**

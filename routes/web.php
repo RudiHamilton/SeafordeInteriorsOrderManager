@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutoComplete;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
@@ -12,7 +13,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('/usedpages')->group(function(){
-    Route::get('addcustomer',function(){return view('/usedpages/addcustomer');});
+    Route::get('addcustomer',[AutoComplete::class,'autoComplete']);
     Route::get('addproduct',function(){return view('/usedpages/addproduct');});
     Route::get('createorder',function(){return view('/usedpages/createorder');});
     Route::get('viewcustomers',[CustomerController::class,'index'])->name('viewcustomers');
@@ -43,6 +44,7 @@ Route::prefix('/usedpages')->group(function(){
 Route::prefix('/usedpages')->group(function(){
     Route::put('/viewcustomers/{customer_id}',[CustomerController::class,'update'])->name('updatecustomer');
     Route::put('/viewproducts/{product_id}',[ProductController::class,'update'])->name('updateproduct');
+    Route::put('/vieworders/{order_id}',[OrderController::class,'update'])->name('updateorder');
 });
 
 Route::get('/usedpages/dashboard', [DashboardController::class, 'viewAllStats']);

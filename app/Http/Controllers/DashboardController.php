@@ -24,11 +24,12 @@ class DashboardController extends Controller
         $totalNetProfit = Order::sum('order_net_profit');
         return $totalNetProfit;
     }
-    //all pending and completed orders (could use a pie chart)
+    //all of completed orders
     public function completedOrders(){
         $completedOrders = Order::where('order_complete', 1)->count();
         return $completedOrders;
     }
+    //all of the pending orders
     public function pendingOrders(){
         $pendingOrders = Order::where('order_complete', 0)->count();
         return $pendingOrders;
@@ -37,6 +38,10 @@ class DashboardController extends Controller
     public function totalCost(){
         $totalCost = Order::sum('order_cost_to_make');
         return $totalCost;
+    }
+    public function totalCandles(){
+        $amountOfCandles = Order::sum('order_quantity');
+        return $amountOfCandles;
     }
     //best selling product
     public function bestSelling(){
@@ -59,6 +64,13 @@ class DashboardController extends Controller
         $recentOrders = Order::latest()->take(10)->get();
         return $recentOrders;
     }
+    public function profitPerItem(){
+        $profitPerItem = Order::selectRaw('product_id, SUM(order_net_profit) as total_profit')
+            ->groupBy('product_id')
+            ->orderByDesc('total_profit')
+            ->get();
+        return $profitPerItem;
+    }
     //returns all the stats as an array
     public function returnAllStats(){
         return [
@@ -68,9 +80,11 @@ class DashboardController extends Controller
             'completed_orders'=> $this->completedOrders(),
             'pending_orders' => $this->pendingOrders(),
             'total_cost' => $this->totalCost(),
+            'total_candles'=>$this->totalCandles(),
             'best_selling_product' => $this->bestSelling(),
             'most_profitable_product' => $this->mostProfitableProduct(),
             'last_10_orders' => $this->last10Orderss(),
+            'profit_per_item' => $this->profitPerItem()
         ];
     }
     public function viewAllStats(){

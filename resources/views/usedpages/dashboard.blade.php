@@ -12,7 +12,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Total Orders</h5>
-                                <p class="card-text">{{ $stats['order_count'] }}</p>
+                                <p class="card-text">Total Orders: {{ $stats['order_count']}}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Total Candles Ordered: {{ $stats['total_candles']}}</p>
                             </div>
                         </div>
                     </div>
@@ -109,6 +111,7 @@
                                 <th>Customer ID</th>
                                 <th>Quantity</th>
                                 <th>Total Price</th>
+                                <th>Edit Order</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,6 +121,13 @@
                                     <td>{{ $order->customer_id }}</td>
                                     <td>{{ $order->order_quantity }}</td>
                                     <td>£{{ number_format($order->order_profit, 2) }}</td>
+                                    <td>
+                                        <form method="POST" action="{{route('editorder',$order->order_id)}}">
+                                            @csrf
+                                            @method('GET')
+                                            <button type="submit">Edit</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -137,7 +147,7 @@
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
           label: '# of Votes',
-          data: [12,4,5, 3, 5, 2, 3],
+          data: [],
           borderWidth: 1
           
         }]
