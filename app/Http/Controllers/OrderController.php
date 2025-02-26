@@ -127,4 +127,20 @@ class OrderController extends Controller
             'total_price'=>$totalPrice,
         ];
     }
+    public function search(Request $request){
+        Log::info('Search method reached');
+        $search_text = $request->get('search_orders');
+        Log::info('Search parameter found');
+        $orders = Order::where('order_id', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_id', 'like', '%' .$search_text. '%')
+                            ->orWhere('product_id', 'like', '%' .$search_text. '%')
+                            ->orWhere('order_payment_type', 'like', '%' .$search_text. '%')
+                            ->orWhere('order_quantity', 'like', '%' .$search_text. '%')
+                            ->orWhere('order_profit', 'like', '%' .$search_text. '%')
+                            ->orWhere('order_net_profit', 'like', '%' .$search_text. '%')
+                            ->orWhere('order_cost_to_make', 'like', '%' .$search_text. '%')
+                            ->orWhere('order_complete', 'like', '%' .$search_text. '%')->get();
+        Log::info('Field found returning view');
+        return view('/usedpages/vieworders',compact('orders'));
+    }
 }

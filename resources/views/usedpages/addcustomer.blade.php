@@ -28,13 +28,18 @@
         <button class="btn-submit" type="submit">Submit</button>
     </form>
 <script>
-    
-    const ACCESS_TOKEN = '{{$app_token}}';
-    window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
+    try {
+        const response = await fetch('/api/mapbox-token');
+        const data = await response();
+        
         const collection = mapboxsearch.autofill({
-            accessToken: ACCESS_TOKEN
+            accessToken: data.accessToken
         });
-    });
+    } catch (error) {
+        console.error('Error fetching token:', error);
+    }
+});
 </script>
 
     </div>

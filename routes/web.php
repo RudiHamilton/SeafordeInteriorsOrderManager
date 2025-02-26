@@ -48,3 +48,7 @@ Route::prefix('/usedpages')->group(function(){
 });
 
 Route::get('/usedpages/dashboard', [DashboardController::class, 'viewAllStats']);
+
+Route::get('/searchcustomers',[CustomerController::class,'search'])->name('searchCustomers');
+Route::get('/searchproducts',[ProductController::class,'search'])->name('searchProducts');
+Route::get('/searchorders',[OrderController::class,'search'])->name('searchOrders');

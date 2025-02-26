@@ -1,5 +1,16 @@
 <x-layout>
     <h1>View Customers</h1>
+    <form class="form-inline my-2 my-lg-0" style="display:inline-block" method="GET" action="{{url('/searchcustomers')}}">
+        @csrf
+        <input type="search" class="search_customers" name="search_customers" id="search_customers" placeholder="Search Customers"></input>
+        <button type="submit">Search</button>
+    </form>
+    <form class="form-inline my-2 my-lg-0" style="display:inline-block" method="GET" action="{{url('/usedpages/viewcustomers')}}">
+        @csrf
+        <button type="submit">Clear Search</button>
+    </form>
+
+    </div>
     <table>
         <thead>
             {{-- This will be swapped out for cards in the future just testing currently --}}

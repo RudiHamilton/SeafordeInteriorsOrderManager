@@ -7,6 +7,7 @@
 main{
   padding:50px;
 }
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -100,6 +101,14 @@ th, td {
     border-radius: 4px;
     box-sizing: border-box;
   }
+  input[type=search], select {
+    padding: 14px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
 
   input[type=integer], select {
     width: 50%;
@@ -127,6 +136,7 @@ th, td {
   }
   
   button{
+    appearance: none;
     backface-visibility: hidden;
     background-color: darkolivegreen;
     border-radius: 10%;
@@ -140,11 +150,9 @@ th, td {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: normal;
-    line-height: 1.5;
     outline: none;
     overflow: hidden;
     padding: 13px 20px;
-    position: relative;
     text-align: center;
     text-decoration: none;
     transform: translate3d(0, 0, 0);
@@ -152,7 +160,6 @@ th, td {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    vertical-align: top;
     white-space: nowrap;
   }
   
@@ -171,3 +178,4 @@ th, td {
   button:hover {
     box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
   }
+ 

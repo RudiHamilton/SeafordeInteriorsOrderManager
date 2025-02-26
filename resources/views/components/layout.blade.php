@@ -11,8 +11,8 @@
     <ul>
         <li><h1><a href="/">Seaforde Interiors Order Management System</a></h1></li>
         <li><a href="/usedpages/viewproducts">View Products Table</a></li>
-        <li><a href="/usedpages/vieworders">View Orders Table</a></li>
         <li><a href="/usedpages/viewcustomers">View Customers Table</a></li>
+        <li><a href="/usedpages/vieworders">View Orders Table</a></li>
         <li><a href="/usedpages/addproduct">Add Product</a></li>
         <li><a href="/usedpages/addcustomer">Add Customer</a></li>
         <li><a href="/usedpages/createorder">Create Order</a></li>

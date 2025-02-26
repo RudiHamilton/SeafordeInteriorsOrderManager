@@ -1,5 +1,14 @@
 <x-layout>
     <h1>View Products</h1>
+    <form class="form-inline my-2 my-lg-0" style="display:inline-block" method="GET" action="{{url('/searchproducts')}}">
+        @csrf
+        <input type="search" class="search_products" name="search_products" id="search_products" placeholder="Search Products"></input>
+        <button type="submit">Search</button>
+    </form>
+    <form class="form-inline my-2 my-lg-0" style="display:inline-block" method="GET" action="{{url('/usedpages/viewproducts')}}">
+        @csrf
+        <button type="submit">Clear Search</button>
+    </form>
     <table>
         <thead>
             {{-- This will be swapped out for cards in the future just testing currently --}}

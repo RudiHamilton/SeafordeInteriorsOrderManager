@@ -84,4 +84,17 @@ class ProductController extends Controller
         Log::info('product records loaded again');
         return view('/usedpages/viewproducts',compact('products'));
     }
+
+    public function search(Request $request){
+        Log::info('Search method reached');
+        $search_text = $request->get('search_products');
+        Log::info('Search parameter found');
+        $products = Product::where('product_id', 'like', '%' .$search_text. '%')
+                            ->orWhere('product_name', 'like', '%' .$search_text. '%')
+                            ->orWhere('product_price', 'like', '%' .$search_text. '%')
+                            ->orWhere('product_cost_to_make', 'like', '%' .$search_text. '%')
+                            ->orWhere('product_current_stock', 'like', '%' .$search_text. '%')->get();
+        Log::info('Field found returning view');
+        return view('/usedpages/viewproducts',compact('products'));
+    }
 }

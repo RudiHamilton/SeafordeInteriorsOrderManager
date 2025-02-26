@@ -87,4 +87,19 @@ class CustomerController extends Controller
         Log::info('customer records loaded again');
         return view('/usedpages/viewcustomers',compact('customers'));
     }
+    public function search(Request $request){
+        Log::info('Search method reached');
+        $search_text = $request->get('search_customers');
+        Log::info('Search parameter found');
+        $customers = Customer::where('customer_id', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_second_name', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_second_name', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_email', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_phone', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_firstline_address', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_secondline_address', 'like', '%' .$search_text. '%')
+                            ->orWhere('customer_postcode', 'like', '%' .$search_text. '%')->get();
+        Log::info('Field found returning view');
+        return view('/usedpages/viewcustomers',compact('customers'));
+    }
 }
