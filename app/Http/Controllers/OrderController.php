@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderStoreRequest;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
@@ -37,6 +38,7 @@ class OrderController extends Controller
      */
     public function store(Request $request,)
     {   
+        //$request->validated();
         $product = Product::find($request->product_id);
         $calculatedValues = $this->productCostCalc($request->order_quantity, $product);
         $data = new Order();

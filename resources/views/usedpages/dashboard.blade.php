@@ -6,6 +6,7 @@
         <div class="card mt-5">
             <div class="card-header"><h1>Seaforde Interiors Dashboard</h1></div>
             <div class="card-body">
+                
                 <div class="row">
                     <!-- Total Orders -->
                     <div class="col-md-4">
@@ -137,6 +138,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('myChart');
@@ -144,12 +146,15 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels:['Winter Wonderland','Mournes','Tullymore','Tyrella'],
         datasets: [{
-          label: '# of Votes',
-          data: [],
-          borderWidth: 1
-          
+          label: 'Profit Per Product',
+          data: {{json_encode($stats['profit_per_item'])}},
+          borderWidth: 1,
+          backgroundColor: [
+                'rgb(85, 107, 47)',
+                'rgb(211, 211, 211)',
+            ],
         }]
       },
       options: {

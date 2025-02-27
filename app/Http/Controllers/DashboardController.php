@@ -65,12 +65,16 @@ class DashboardController extends Controller
         return $recentOrders;
     }
     public function profitPerItem(){
-        $profitPerItem = Order::selectRaw('product_id, SUM(order_net_profit) as total_profit')
+        $profitPerItem = Order::query()
+            ->selectRaw('product_id, SUM(order_net_profit) as total_profit')
             ->groupBy('product_id')
-            ->orderByDesc('total_profit')
-            ->get();
+            ->pluck('total_profit','product_id')
+            ->values()
+            ->toArray();
+            $profitPerItem = array_map('intval', $profitPerItem); 
         return $profitPerItem;
     }
+
     //returns all the stats as an array
     public function returnAllStats(){
         return [
@@ -84,7 +88,7 @@ class DashboardController extends Controller
             'best_selling_product' => $this->bestSelling(),
             'most_profitable_product' => $this->mostProfitableProduct(),
             'last_10_orders' => $this->last10Orderss(),
-            'profit_per_item' => $this->profitPerItem()
+            'profit_per_item' => $this->profitPerItem(),
         ];
     }
     public function viewAllStats(){

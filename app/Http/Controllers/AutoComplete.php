@@ -11,7 +11,7 @@ class AutoComplete extends Controller
     {
         $app_token = config('autocomplete.autocomplete_api_key');
         try {
-            return view('/usedpages/addcustomer',compact('app_token'));
+            return view('/usedpages/addcustomer',['app_token' => $app_token]);
         } catch (\Exception $e) {
             // Handle any errors that occur during the API request
             return view('api_error', ['error' => $e->getMessage()]);

@@ -37,7 +37,7 @@
                 <td>{{$order->order_complete}}</td>
                 <td>{{$order->created_at}}</td>
                 <td>
-                    <form method="POST" action="{{route('editorder',$order->order_id,$order->customer_id,$order->produt_id)}}">
+                    <form method="POST" action="{{route('editorder',$order->order_id,$order->customer_id,$order->product_id)}}">
                         @csrf
                         @method('GET')
                         <button type="submit">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>

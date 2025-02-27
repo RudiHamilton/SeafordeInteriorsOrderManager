@@ -1,5 +1,6 @@
 <x-layout>
     <script id="search-js" defer="" src="https://api.mapbox.com/search-js/v1.0.0/web.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
     <h1>Add Customer</h1>
     <div class="inputform">
     <form method="POST" action="{{ route('addcustomer') }}" class="prose flex flex--column">
@@ -25,21 +26,30 @@
         <label class="form-label" for="customer_postcode">Customer Postcode:</label><br>
         <input class="input mb12" type="text" id="customer_postcode" name="customer_postcode" placeholder="Enter Postcode" autocomplete="shipping postal-code"/><br>
         <br>
+        <input type="hidden" id="hidden_firstline_address" name="hidden_firstline_address">
+        <input type="hidden" id="hidden_secondline_address" name="hidden_secondline_address">
+        <input type="hidden" id="hidden_postcode" name="hidden_postcode">    
         <button class="btn-submit" type="submit">Submit</button>
     </form>
 <script>
-window.addEventListener('load', async () => {
-    try {
-        const response = await fetch('/api/mapbox-token');
-        const data = await response();
-        
+    const ACCESS_TOKEN = '{{$app_token}}';
+    window.addEventListener('load', () => {
         const collection = mapboxsearch.autofill({
-            accessToken: data.accessToken
+            accessToken: ACCESS_TOKEN
         });
-    } catch (error) {
-        console.error('Error fetching token:', error);
-    }
-});
+    });
+    document.getElementById('customer_firstline_address').addEventListener('input', function () {
+        document.getElementById('hidden_firstline_address').value = this.value;
+    });
+
+    document.getElementById('customer_secondline_address').addEventListener('input', function () {
+        document.getElementById('hidden_secondline_address').value = this.value;
+    });
+
+    document.getElementById('customer_postcode').addEventListener('input', function () {
+        document.getElementById('hidden_postcode').value = this.value;
+    });
+    
 </script>
 
     </div>

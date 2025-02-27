@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerValRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -28,20 +29,23 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CustomerValRequest $request)
     {
+        $request->validated();
+        Log::info('Received form data:',  $request->all());
         Log::info('Customer Store function reached');
-        $data = new Customer();
-        $data->customer_first_name = $request->customer_first_name;
-        $data->customer_second_name = $request->customer_second_name;
-        $data->customer_email = $request->customer_email;
-        $data->customer_phone = $request->customer_phone;
-        $data->customer_firstline_address = $request->customer_firstline_address;
-        $data->customer_secondline_address = $request->customer_secondline_address;
-        $data->customer_postcode = $request->customer_postcode;
-        $data->save();
+        Customer::create([
+            'customer_first_name'=> $request->customer_first_name,
+            'customer_second_name'=> $request->customer_second_name,
+            'customer_email'=> $request->customer_email,
+            'customer_phone'=> $request->customer_phone,
+            'customer_firstline_address'=> $request->hidden_firstline_address,
+            'customer_secondline_address'=> $request->hidden_secondline_address,
+            'customer_postcode'=> $request->hidden_postcode,
+        ]);
         Log::info('Customer data has been stored in databse');
-        return view('/usedpages/addcustomer');
+        $customers = Customer::all();
+        return view('/usedpages/viewcustomers',compact('customers'));
     }
 
     /**

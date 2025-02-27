@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -28,15 +29,17 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
+        $request->validated();
+        Log::info('Received form data:',  $request->all());
         Log::info('Product Store function reached');
-        $data = new Product();
-        $data->product_name = $request->product_name;
-        $data->product_price = $request->product_price;
-        $data->product_cost_to_make = $request->product_cost_to_make;
-        $data->product_current_stock = $request->product_current_stock;
-        $data->save();
+        Product::create([
+            'product_name'=> $request->product_name,
+            'product_price'=> $request->product_price,
+            'product_cost_to_make'=> $request->product_cost_to_make,
+            'product_current_stock'=> $request->product_current_stock,
+        ]);
         Log::info('Product data has been stored in databse');
         return view('/usedpages/addproduct');
     }
